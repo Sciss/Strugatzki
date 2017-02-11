@@ -1,14 +1,14 @@
 name               := "Strugatzki"
-version            := "2.14.0"
+version            := "2.14.1"
 organization       := "de.sciss"
-scalaVersion       := "2.11.8"
-crossScalaVersions := Seq("2.11.8", "2.10.6")
+scalaVersion       := "2.12.1"
+crossScalaVersions := Seq("2.12.1", "2.11.8", "2.10.6")
 description        := "Algorithms for extracting audio features and matching audio file similarities"
 homepage           := Some(url(s"https://github.com/Sciss/${name.value}"))
 licenses           := Seq("LGPL v2.1+" -> url("http://www.gnu.org/licenses/lgpl-2.1.txt"))
 
-lazy val scalaColliderVersion = "1.22.1"
-lazy val spanVersion          = "1.3.1"
+lazy val scalaColliderVersion = "1.22.3"
+lazy val spanVersion          = "1.3.2"
 lazy val paletteVersion       = "1.0.0"
 lazy val fileUtilVersion      = "1.1.2"
 lazy val scoptVersion         = "3.5.0"
