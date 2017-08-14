@@ -1,18 +1,18 @@
 name               := "Strugatzki"
-version            := "2.14.1"
+version            := "2.15.0"
 organization       := "de.sciss"
-scalaVersion       := "2.12.1"
-crossScalaVersions := Seq("2.12.1", "2.11.8", "2.10.6")
+scalaVersion       := "2.12.3"
+crossScalaVersions := Seq("2.12.3", "2.11.11")
 description        := "Algorithms for extracting audio features and matching audio file similarities"
 homepage           := Some(url(s"https://github.com/Sciss/${name.value}"))
 licenses           := Seq("LGPL v2.1+" -> url("http://www.gnu.org/licenses/lgpl-2.1.txt"))
 
-lazy val scalaColliderVersion = "1.22.3"
+lazy val scalaColliderVersion = "1.22.4"
 lazy val spanVersion          = "1.3.2"
 lazy val paletteVersion       = "1.0.0"
-lazy val fileUtilVersion      = "1.1.2"
-lazy val scoptVersion         = "3.5.0"
-lazy val scalaTestVersion     = "3.0.1"
+lazy val fileUtilVersion      = "1.1.3"
+lazy val scoptVersion         = "3.6.0"
+lazy val scalaTestVersion     = "3.0.3"
 
 libraryDependencies ++= Seq(
   "de.sciss"          %% "scalacollider"    % scalaColliderVersion,   // for the feature ugens
