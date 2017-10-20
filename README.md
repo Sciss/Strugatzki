@@ -1,6 +1,5 @@
 # Strugatzki
 
-[![Flattr this](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=sciss&url=https%3A%2F%2Fgithub.com%2FSciss%2FStrugatzki&title=Strugatzki&language=Scala&tags=github&category=software)
 [![Build Status](https://travis-ci.org/Sciss/Strugatzki.svg?branch=master)](https://travis-ci.org/Sciss/Strugatzki)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.sciss/strugatzki_2.11/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.sciss/strugatzki_2.11)
 
