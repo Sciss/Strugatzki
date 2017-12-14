@@ -1,8 +1,8 @@
 language: scala
 
 scala:
-  - 2.12.3
-  - 2.11.11
+  - 2.12.4
+  - 2.11.12
 
 env:
   - JDK=oraclejdk8
@@ -14,5 +14,5 @@ before_script:
 matrix:
   # scala 2.12 requires java 8
   exclude:
-    - scala: 2.12.3
+    - scala: 2.12.4
       env: JDK=openjdk6

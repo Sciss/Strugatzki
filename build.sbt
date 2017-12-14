@@ -1,13 +1,13 @@
 name               := "Strugatzki"
-version            := "2.16.0"
+version            := "2.17.0"
 organization       := "de.sciss"
-scalaVersion       := "2.12.3"
-crossScalaVersions := Seq("2.12.3", "2.11.11")
+scalaVersion       := "2.12.4"
+crossScalaVersions := Seq("2.12.4", "2.11.12")
 description        := "Algorithms for extracting audio features and matching audio file similarities"
 homepage           := Some(url(s"https://github.com/Sciss/${name.value}"))
 licenses           := Seq("LGPL v2.1+" -> url("http://www.gnu.org/licenses/lgpl-2.1.txt"))
 
-lazy val scalaColliderVersion = "1.22.4"
+lazy val scalaColliderVersion = "1.23.0"
 lazy val spanVersion          = "1.3.3"
 lazy val paletteVersion       = "1.0.0"
 lazy val fileUtilVersion      = "1.1.3"
@@ -67,6 +67,6 @@ pomExtra := { val n = name.value
 
 // ---- packaging ----
 
-test            in assembly := ()
+test            in assembly := {}
 target          in assembly := baseDirectory.value
 assemblyJarName in assembly := s"${name.value}.jar"
