@@ -2,7 +2,7 @@
  *  FeatureExtraction.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -28,7 +28,7 @@ object FeatureExtraction extends ProcessorFactory.WithDefaults {
   type Product  = Unit
   type Repr     = FeatureExtraction
 
-  protected def defaultConfig = Config().build
+  protected def defaultConfig: Config = Config().build
 
   protected def prepare(settings: Config): Prepared =
     new impl.FeatureExtractionImpl(settings)
@@ -160,7 +160,7 @@ object FeatureExtraction extends ProcessorFactory.WithDefaults {
 
       override def productPrefix = "Config"
 
-      def toXML =
+      def toXML: xml.Elem =
 <feature>
   <input>{audioInput.getPath}</input>
   <output>{featureOutput.getPath}</output>

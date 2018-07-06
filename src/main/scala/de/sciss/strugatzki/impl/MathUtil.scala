@@ -2,7 +2,7 @@
  *  MathUtil.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *

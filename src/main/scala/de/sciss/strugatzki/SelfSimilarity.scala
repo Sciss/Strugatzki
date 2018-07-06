@@ -2,7 +2,7 @@
  *  SelfSimilarity.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -166,7 +166,7 @@ object SelfSimilarity extends ProcessorFactory.WithDefaults {
     /** The image output file defaults to `output_selfsim.png` (relative path). */
     var imageOutput = new File("output_selfsim.png")
     /** The optional span restriction defaults to `Span.all`. */
-    var span = Span.all: Span.NonVoid
+    var span: Span.NonVoid = Span.all
     /** The correlation length defaults to 44100 sample frames
       * (or 1.0 seconds at 44.1 kHz sample rate).
       */
@@ -176,7 +176,7 @@ object SelfSimilarity extends ProcessorFactory.WithDefaults {
     /** The temporal weight defaults to 0.5. */
     var temporalWeight = 0.5f
     /** The default color scheme is psycho-optical. */
-    var colors = PsychoOptical: ColorScheme
+    var colors: ColorScheme = PsychoOptical
     /** The default color warp is `1.0`. */
     var colorWarp = 1.0f
     /** The default color ceiling is `1.0`. */
@@ -220,7 +220,7 @@ object SelfSimilarity extends ProcessorFactory.WithDefaults {
   {span match { case Span.HasStop(s)  =>  <stop>{s}</stop>;  case _ => Nil}}
  </span>
 
-      def toXML =
+      def toXML: xml.Elem =
 <selfsimilarity>
   <database>{databaseFolder.getPath}</database>
   <input>{metaInput.getPath}</input>

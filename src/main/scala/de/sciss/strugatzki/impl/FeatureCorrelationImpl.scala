@@ -2,7 +2,7 @@
  *  FeatureCorrelationImpl.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -22,6 +22,7 @@ import de.sciss.synth.io.AudioFile
 import scala.collection.breakOut
 import scala.collection.immutable.{SortedSet => ISortedSet}
 import scala.concurrent.blocking
+import scala.util.Failure
 import scala.xml.XML
 
 private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrelation.Config)
@@ -181,7 +182,7 @@ private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrel
             //  val b          = afExtr.frameBuffer( math.max( punchInLen, punchOutLen ))
             var left        = afExtr.numFrames
             matrixOutO.foreach {
-              mo => left -= minPunch /* + mo.numFrames */
+              _ => left -= minPunch /* + mo.numFrames */
             }
             var readSz      = punchInLen // read full buffer in first round
             var readOff     = 0
@@ -214,7 +215,10 @@ private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrel
                   if (!tInOpen) {
                     if (tIn == null) {
                       tIn = IOUtil.createTempAudioFile("in", 2)
-                      onFailure { case _ => tIn.file.get.delete() }
+                      onComplete {
+                        case Failure(_) => tIn.file.get.delete()
+                        case _ =>
+                      }
                     } else {
                       tIn.seek(0L)
                     }
@@ -264,7 +268,10 @@ private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrel
                   // means we actually do at least one full correlation
                   if (tOut == null) {
                     tOut = IOUtil.createTempAudioFile("out", 2)
-                    onFailure { case _ => tOut.file.get.delete() }
+                    onComplete {
+                      case Failure(_) => tOut.file.get.delete()
+                      case _ =>
+                    }
                   } else {
                     tOut.seek(0L)
                   }

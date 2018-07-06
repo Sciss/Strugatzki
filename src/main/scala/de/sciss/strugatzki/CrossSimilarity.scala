@@ -2,7 +2,7 @@
  *  CrossSimilarity.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -114,15 +114,15 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
 
   final class ConfigBuilder private[CrossSimilarity]() extends ConfigLike {
     /** The database folder defaults to `database` (relative path). */
-    var databaseFolder = file("database") // Strugatzki.defaultDir
+    var databaseFolder: File = file("database") // Strugatzki.defaultDir
     /** The first correlation input file's extractor meta data file defaults
       * to `input1_feat.xml` (relative path)
       */
-    var metaInput1 = file("input1_feat.xml")
+    var metaInput1: File = file("input1_feat.xml")
     /** The second correlation input file's extractor meta data file defaults
       * to `input2_feat.xml` (relative path)
       */
-    var metaInput2 = file("input2_feat.xml")
+    var metaInput2: File = file("input2_feat.xml")
 
     private[CrossSimilarity] var _audioOutput      = file("output.aif")
     private[CrossSimilarity] var _audioOutputType  = AudioFileType.AIFF: AudioFileType
@@ -130,7 +130,7 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
     private def outputExtMatches = _audioOutputType.extensions.contains(_audioOutput.ext)
 
     /** The audio output file defaults to `output.aif` (relative path). */
-    def audioOutput = _audioOutput
+    def audioOutput: File = _audioOutput
 
     /** Sets the audio output file. If currently type and file extension match,
       * this will also switch `audioOutputType` if necessary.
@@ -145,7 +145,7 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
     }
 
     /** The audio output file type defaults to AIFF. */
-    def audioOutputType = _audioOutputType
+    def audioOutputType: AudioFileType = _audioOutputType
     /** Sets the audio output file type. If currently type and file extension match,
       * this will also exchange the extension of `audioOutput` if necessary.
       */
@@ -156,10 +156,10 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
     }
 
     /** The optional span restriction for the first file defaults to `Span.all`. */
-    var span1 = Span.all: Span.NonVoid
+    var span1: Span.NonVoid = Span.all
 
     /** The optional span restriction for the second file defaults to `Span.all`. */
-    var span2 = Span.all: Span.NonVoid
+    var span2: Span.NonVoid = Span.all
 
     //    /** The correlation length defaults to 44100 sample frames
     //      * (or 1.0 seconds at 44.1 kHz sample rate).
@@ -204,7 +204,7 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
   {span match { case Span.HasStop(s)  =>  <stop>{s}</stop>;  case _ => Nil}}
  </span>
 
-      def toXML = // <corr>{corrLen}</corr>
+      def toXML: xml.Elem = // <corr>{corrLen}</corr>
 <crosssimilarity>
   <database>{databaseFolder.getPath}</database>
   <input1>{metaInput1.getPath}</input1>

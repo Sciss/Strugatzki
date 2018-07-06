@@ -2,7 +2,7 @@
  *  NonRealtimeProcessor.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -45,7 +45,7 @@ object NonRealtimeProcessor {
   private final class RenderImpl(config: RenderConfig, extract: GE => GE)
     extends ProcessorImpl[File, Processor[File]] with Processor[File] {
 
-    override def toString = config.name
+    override def toString: String = config.name
 
     private def mkFile(suffix: String, keep: Boolean = false): File = {
       val f = File.createTemp(prefix = "struga_nrt", suffix = ".aif")

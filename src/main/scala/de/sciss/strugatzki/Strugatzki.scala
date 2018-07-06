@@ -2,7 +2,7 @@
  *  Strugatzki.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -33,9 +33,9 @@ import scala.util.{Failure, Success}
 object Strugatzki {
   import ExecutionContext.Implicits.global
 
-  final val NormalizeName   = "feat_norms.aif"
-  var tmpDir                = file(sys.props.getOrElse("java.io.tmpdir", "/tmp"))
-  final val name            = "Strugatzki"
+  final val NormalizeName = "feat_norms.aif"
+  var tmpDir: File        = file(sys.props.getOrElse("java.io.tmpdir", "/tmp"))
+  final val name          = "Strugatzki"
 
   private lazy val decibelFormat = {
     val res = NumberFormat.getInstance(Locale.US)
@@ -95,7 +95,7 @@ object Strugatzki {
   private def go(factory: ProcessorFactory { type Repr <: Future[_]})(config: factory.Config)
                 (observer: factory.Observer): Unit = {
     val proc = factory.run(config)(observer)
-    Await.ready(proc, Duration.Inf)
+    Await.ready[Any](proc, Duration.Inf)
   }
 
   def featureCorr(args: Array[String]): Unit = {
@@ -116,7 +116,7 @@ object Strugatzki {
     var minSpacing    = 0.0 // 0.5
     var normalize     = true
 
-    implicit val parser  = new OptionParser[Unit](s"$name -c") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -c") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       opt[File]('d', "dir") required() text "Database directory" action { (f,_) => dir = f }
       opt[Double]("in-start") required() text "Punch in begin (secs)" action { (d,_) => punchInStart = d }
@@ -228,7 +228,7 @@ object Strugatzki {
     var inFile        = file("")
     var normalize     = true
 
-    implicit val parser = new OptionParser[Unit](s"$name -s") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -s") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
       opt[Double]("length") text "Correlation length in secs (default: 0.5)" action { (d,_) => corrLen = d }
@@ -321,7 +321,7 @@ object Strugatzki {
     var colorInv      = false
     var normalize     = true
 
-    implicit val parser = new OptionParser[Unit](s"$name -x") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -x") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
       opt[Double]("length") text "Correlation length in secs (default: 1.0)" action { (d,_) => corrLen = d }
@@ -401,7 +401,7 @@ object Strugatzki {
     var dir       = file("")
     var verbose   = false
 
-    implicit val parser = new OptionParser[Unit](s"$name --stats") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name --stats") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       opt[File]('d', "dir") required() text "Database directory" action { (f,_) => dir = f }
     }
@@ -430,7 +430,7 @@ object Strugatzki {
         println("Done.")
       case Result(_, Failure(Aborted())) =>
         println("  Aborted")
-      case Result(_, Failure((e))) =>
+      case Result(_, Failure(e)) =>
         println("  Failed: ")
         e.printStackTrace()
       case Progress(_, p) =>
@@ -453,7 +453,7 @@ object Strugatzki {
     var verbose     = false
     var chanString  = "mix"
 
-    implicit val parser = new OptionParser[Unit](s"$name -f") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -f") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       arg[File]("<input>...") required() unbounded() text "List of input files or directories" action { (f,_) => inputs +:= f }
       opt[File]('d', "dir") required() text "Target directory" action { (f,_) => dir = f }
@@ -535,7 +535,7 @@ object Strugatzki {
     var normalize     = true
     var maxBoost      = 8.0
 
-    implicit val parser = new OptionParser[Unit](s"$name -y") {
+    implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -y") {
       opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
       opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
       opt[Double]("temp") text "Temporal weight (0 to 1, default 0.5)" action { (d,_) => temp = d }

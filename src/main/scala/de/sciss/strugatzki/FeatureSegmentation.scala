@@ -2,7 +2,7 @@
  *  FeatureSegmentation.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -45,7 +45,7 @@ object FeatureSegmentation extends ProcessorFactory.WithDefaults {
   }
 
   final case class Break(sim: Float, pos: Long) {
-    def toXML =
+    def toXML: xml.Elem =
 <break>
   <sim>{sim}</sim>
   <pos>{pos}</pos>
@@ -58,7 +58,7 @@ object FeatureSegmentation extends ProcessorFactory.WithDefaults {
   // ordering we will have low similarities (high dissimilarities)
   // at the head and high similarities at the tail
   private[strugatzki] object BreakMaxOrd extends Ordering[Break] {
-    def compare(a: Break, b: Break) = a.sim compare b.sim
+    def compare(a: Break, b: Break): Int = a.sim compare b.sim
   }
 
   protected def defaultConfig: Config = Config()
@@ -139,7 +139,7 @@ object FeatureSegmentation extends ProcessorFactory.WithDefaults {
     var metaInput = new File("input_feat.xml")
 
     /** The optional span restriction defaults to `None`. */
-    var span = Span.All: Span.NonVoid
+    var span: Span.NonVoid = Span.All
 
     /** The correlation length defaults to 22050 sample frames (or 0.5 seconds at 44.1 kHz sample rate). */
     var corrLen = 22050L
@@ -176,7 +176,7 @@ object FeatureSegmentation extends ProcessorFactory.WithDefaults {
       extends Config {
       override def productPrefix = "Config"
 
-      def toXML =
+      def toXML: xml.Elem =
 <segmentation>
      <database>{databaseFolder.getPath}</database>
      <input>{metaInput.getPath}</input>

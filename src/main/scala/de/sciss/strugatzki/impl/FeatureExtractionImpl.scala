@@ -2,7 +2,7 @@
  *  FeatureExtractionImpl.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -44,8 +44,8 @@ private[strugatzki] final class FeatureExtractionImpl(val config: FeatureExtract
 
       val in      = config.channelsBehavior match {
         case ChannelsBehavior.Mix   => Mix(in0)
-        case ChannelsBehavior.First => in0 \ 0
-        case ChannelsBehavior.Last  => in0 \ (inChannels - 1)
+        case ChannelsBehavior.First => in0.out(0)
+        case ChannelsBehavior.Last  => in0.out(inChannels - 1)
       }
       val chain   = FFT("fft".kr, in, 1.0 / config.fftOverlap, fftWinType)
       val coeffs  = MFCC.kr(chain, config.numCoeffs)

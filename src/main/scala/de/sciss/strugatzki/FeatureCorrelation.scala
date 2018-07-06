@@ -2,7 +2,7 @@
  *  FeatureCorrelation.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2016 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -52,7 +52,7 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
     * @param   boostOut the estimated gain factor for the match at the punch's stop
     */
   final case class Match(sim: Float, file: File, punch: Span, boostIn: Float, boostOut: Float) {
-    def toXML =
+    def toXML: xml.Elem =
 <match>
    <sim>{sim}</sim>
    <file>{file.getPath}</file>
@@ -73,7 +73,7 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
   // this means we get a sorted-set with high similarities at the head and low
   // similarities at the tail, like a priority queue
   private[strugatzki] object MatchMinOrd extends Ordering[Match] {
-    def compare(a: Match, b: Match) = b.sim compare a.sim
+    def compare(a: Match, b: Match): Int = b.sim compare a.sim
   }
 
   protected def defaultConfig: Config = Config()
@@ -91,7 +91,7 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
   }
 
   final case class Punch(span: Span, temporalWeight: Float = 0.5f) {
-    def toXML =
+    def toXML: xml.Elem =
 <punch>
   <start>{span.start}</start>
   <stop>{span.stop}</stop>
@@ -167,12 +167,12 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
 
   final class ConfigBuilder private[FeatureCorrelation]() extends ConfigLike {
     /** The database folder defaults to `database` (relative path). */
-    var databaseFolder = file("database") // Strugatzki.defaultDir
+    var databaseFolder: File = file("database") // Strugatzki.defaultDir
 
     /** The correlation input file's extractor meta data file defaults
       * to `input_feat.xml` (relative path)
       */
-    var metaInput = file("input_feat.xml")
+    var metaInput: File = file("input_feat.xml")
 
     /** The punch in defaults to a `Span( 0L, 44100L )` and a temporal weight of 0.5. */
     var punchIn = Punch(Span(0L, 44100L), 0.5f)
@@ -228,7 +228,7 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
       extends Config {
       override def productPrefix = "Config"
 
-      def toXML =
+      def toXML: xml.Elem =
 <correlate>
   <database>{databaseFolder.getPath}</database>
   <input>{metaInput.getPath}</input>
@@ -278,8 +278,8 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
 
   private[strugatzki] final case class FeatureMatrix(mat: Array[Array[Float]], numFrames: Int,
                                                      mean: Double, stdDev: Double) {
-    def numChannels = mat.length
-    def matSize = numFrames * numChannels
+    def numChannels : Int = mat.length
+    def matSize     : Int = numFrames * numChannels
   }
 
   private[strugatzki] final case class InputMatrix(temporal: FeatureMatrix, spectral: FeatureMatrix,
