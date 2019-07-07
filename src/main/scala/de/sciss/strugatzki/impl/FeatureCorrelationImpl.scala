@@ -2,7 +2,7 @@
  *  FeatureCorrelationImpl.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -19,7 +19,6 @@ import de.sciss.processor.impl.ProcessorImpl
 import de.sciss.span.Span
 import de.sciss.synth.io.AudioFile
 
-import scala.collection.breakOut
 import scala.collection.immutable.{SortedSet => ISortedSet}
 import scala.concurrent.blocking
 import scala.util.Failure
@@ -40,7 +39,8 @@ private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrel
     def featToFull(i: Int)  = i.toLong * stepSize
 
     // collect all valid database files from the folder
-    val punchMetaFiles = config.databaseFolder.children(_.name.endsWith("_feat.xml")).toSet - config.metaInput
+    val punchMetaFiles: Set[File] =
+      config.databaseFolder.children(_.name.endsWith("_feat.xml")).toSet - config.metaInput
 
     if (verbose) {
       println(s"Number of files in database : ${punchMetaFiles.size}")
@@ -48,12 +48,12 @@ private[strugatzki] final class FeatureCorrelationImpl(val config: FeatureCorrel
 
     // collect all database entries which match the input resolution
     // (for simplicity, we ignore the fact that the sample rates could differ)
-    val extrDBs: IndexedSeq[ExtrSettings] = punchMetaFiles.map(file => {
+    val extrDBs: IndexedSeq[ExtrSettings] = punchMetaFiles.iterator.map(file => {
       val e = ExtrSettings.fromXMLFile(file)
       if ((e.numCoeffs == extrIn.numCoeffs) && (e.fftSize / e.fftOverlap == stepSize)) Some(e) else None
-    })(breakOut).collect {
+    }).collect {
       case Some(e) => e
-    }
+    } .toVector
 
     if (verbose) {
       println(s"Number of compatible files in database : ${extrDBs.size}")

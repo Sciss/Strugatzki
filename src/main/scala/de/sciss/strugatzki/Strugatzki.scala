@@ -2,7 +2,7 @@
  *  Strugatzki.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -24,7 +24,6 @@ import de.sciss.strugatzki.FeatureExtraction.{Config => ExtrConfig}
 import de.sciss.synth.io.{AudioFile, AudioFileSpec, AudioFileType, SampleFormat}
 import scopt.OptionParser
 
-import scala.collection.breakOut
 import scala.collection.immutable.{IndexedSeq => Vec}
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Promise, Await, ExecutionContext, Future}
@@ -117,22 +116,22 @@ object Strugatzki {
     var normalize     = true
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -c") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      opt[File]('d', "dir") required() text "Database directory" action { (f,_) => dir = f }
-      opt[Double]("in-start") required() text "Punch in begin (secs)" action { (d,_) => punchInStart = d }
-      opt[Double]("in-stop" ) required() text "Punch in end (secs)"   action { (d,_) => punchInStop  = d }
-      opt[Double]("in-temp") text "Temporal weight for punch in (0 to 1, default 0.5)" action { (d,_) => tempIn = d }
-      opt[Double]("out-start") text "Punch out begin (secs)" action { (d,_) => punchOutStart = Some(d) }
-      opt[Double]("out-stop" ) text "Punch out end (secs)"   action { (d,_) => punchOutStop  = Some(d) }
-      opt[Double]("out-temp") text "Temporal weight for punch out (0 to 1, default 0.5)" action { (d,_) => tempOut = d }
-      opt[Double]("dur-min") required() text "Minimum fill duration (secs)" action { (d,_) => minPunch = d }
-      opt[Double]("dur-max") required() text "Maximum fill duration (secs)" action { (d,_) => maxPunch = d }
-      opt[Double]("boost-max") text "Maximum loudness boost factor (default 8)" action { (d,_) => maxBoost = d }
-      opt[Int]('m', "num-matches") text "Maximum number of matches (default 1)" action { (i,_) => numMatches = i }
-      opt[Int]("num-per-file") text "Maximum matches per single file (default 1)" action { (i,_) => numPerFile = i }
-      opt[Double]("spacing") text "Minimum spacing between matches within one file (default 0.0)" action { (d,_) => minSpacing = d }
-      arg[File]("input") required() text "Meta file of input to process" action { (f,_) => inFile = f }
-      opt[Unit]("no-norm") text "Do not apply feature normalization" action { (_,_) => normalize = false }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      opt[File]('d', "dir").required().text("Database directory").action { (f,_) => dir = f }
+      opt[Double]("in-start").required().text("Punch in begin (secs)").action { (d,_) => punchInStart = d }
+      opt[Double]("in-stop" ).required().text("Punch in end (secs)").action { (d,_) => punchInStop  = d }
+      opt[Double]("in-temp").text("Temporal weight for punch in (0 to 1, default 0.5)").action { (d,_) => tempIn = d }
+      opt[Double]("out-start").text("Punch out begin (secs)").action { (d,_) => punchOutStart = Some(d) }
+      opt[Double]("out-stop" ).text("Punch out end (secs)").action { (d,_) => punchOutStop  = Some(d) }
+      opt[Double]("out-temp").text("Temporal weight for punch out (0 to 1, default 0.5)").action { (d,_) => tempOut = d }
+      opt[Double]("dur-min").required().text("Minimum fill duration (secs)").action { (d,_) => minPunch = d }
+      opt[Double]("dur-max").required().text("Maximum fill duration (secs)").action { (d,_) => maxPunch = d }
+      opt[Double]("boost-max").text("Maximum loudness boost factor (default 8)").action { (d,_) => maxBoost = d }
+      opt[Int]('m', "num-matches").text("Maximum number of matches (default 1)").action { (i,_) => numMatches = i }
+      opt[Int]("num-per-file").text("Maximum matches per single file (default 1)").action { (i,_) => numPerFile = i }
+      opt[Double]("spacing").text("Minimum spacing between matches within one file (default 0.0)").action { (d,_) => minSpacing = d }
+      arg[File]("input").required().text("Meta file of input to process").action { (f,_) => inFile = f }
+      opt[Unit]("no-norm").text("Do not apply feature normalization").action { (_,_) => normalize = false }
     }
 
     if (!parser.parse(args)) sys.exit(1)
@@ -229,16 +228,16 @@ object Strugatzki {
     var normalize     = true
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -s") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
-      opt[Double]("length") text "Correlation length in secs (default: 0.5)" action { (d,_) => corrLen = d }
-      opt[Double]("temp") text "Temporal weight (0 to 1, default 0.5)" action { (d,_) => temp = d }
-      opt[Double]("span-start") text "Search begin in file (secs)" action { (d,_) => spanStart = Some(d) }
-      opt[Double]("span-stop" ) text "Search end in file (secs)"   action { (d,_) => spanStop  = Some(d) }
-      opt[Int]('m', "num-breaks") text "Maximum number of breaks (default 1)" action { (i,_) => numBreaks = i }
-      opt[Double]("spacing") text "Minimum spacing between matches within one file (default 0.2)" action { (d,_) => minSpacing = d }
-      arg[File]("input") required() text "Meta file of input to process" action { (f,_) => inFile = f }
-      opt[Unit]("no-norm") text "Do not apply feature normalization" action { (_,_) => normalize = false }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      opt[File]('d', "dir").text("Database directory (required for normalization file)").action { (f,_) => dirOption = Some(f) }
+      opt[Double]("length").text("Correlation length in secs (default: 0.5)").action { (d,_) => corrLen = d }
+      opt[Double]("temp").text("Temporal weight (0 to 1, default 0.5)").action { (d,_) => temp = d }
+      opt[Double]("span-start").text("Search begin in file (secs)").action { (d,_) => spanStart = Some(d) }
+      opt[Double]("span-stop" ).text("Search end in file (secs)").action { (d,_) => spanStop  = Some(d) }
+      opt[Int]('m', "num-breaks").text("Maximum number of breaks (default 1)").action { (i,_) => numBreaks = i }
+      opt[Double]("spacing").text("Minimum spacing between matches within one file (default 0.2)").action { (d,_) => minSpacing = d }
+      arg[File]("input").required().text("Meta file of input to process").action { (f,_) => inFile = f }
+      opt[Unit]("no-norm").text("Do not apply feature normalization").action { (_,_) => normalize = false }
     }
 
     if (!parser.parse(args)) sys.exit(1)
@@ -322,21 +321,21 @@ object Strugatzki {
     var normalize     = true
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -x") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
-      opt[Double]("length") text "Correlation length in secs (default: 1.0)" action { (d,_) => corrLen = d }
-      opt[Double]("temp") text "Temporal weight (0 to 1, default 0.5)" action { (d,_) => temp = d }
-      opt[Double]("span-start") text "Correlation begin in file (secs)" action { (d,_) => spanStart = Some(d) }
-      opt[Double]("span-stop" ) text "Correlation end in file (secs)"   action { (d,_) => spanStop  = Some(d) }
-      opt[String]('c', "colors") text "Color scale (gray|psycho ; defaults to 'psycho')" action { (s,_) => colors = ColorScheme(s) }
-      opt[Double]("color-warp") text "Color scale warping factor (default: 1.0)" action { (d,_) => colorWarp = d }
-      opt[Double]("color-ceil") text "Color scale input ceiling (default: 1.0)"  action { (d,_) => colorCeil = d }
-      opt[Unit]('i', "color-inv") text "Inverted color scale" action { (_,_) => colorInv = true }
-      opt[Int]('m', "decim") text "Pixel decimation factor (default: 1)" action { (i,_) => decim = i }
-      arg[File]("input" ) required() text "Meta file of input to process" action { (f,_) => inFile  = f }
-      arg[File]("output") required() text "Image output file"             action { (f,_) => outFile = f }
-      opt[Unit]("no-norm") text "Do not apply feature normalization" action { (_,_) => normalize = false }
-      opt[File]("input2") text "Second meta input file for cross- instead of self-similarity" action { (f,_) => inFile2 = Some(f) }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      opt[File]('d', "dir").text("Database directory (required for normalization file)").action { (f,_) => dirOption = Some(f) }
+      opt[Double]("length").text("Correlation length in secs (default: 1.0)").action { (d,_) => corrLen = d }
+      opt[Double]("temp").text("Temporal weight (0 to 1, default 0.5)").action { (d,_) => temp = d }
+      opt[Double]("span-start").text("Correlation begin in file (secs)").action { (d,_) => spanStart = Some(d) }
+      opt[Double]("span-stop" ).text("Correlation end in file (secs)").action { (d,_) => spanStop  = Some(d) }
+      opt[String]('c', "colors").text("Color scale (gray|psycho ; defaults to 'psycho')").action { (s,_) => colors = ColorScheme(s) }
+      opt[Double]("color-warp").text("Color scale warping factor (default: 1.0)").action { (d,_) => colorWarp = d }
+      opt[Double]("color-ceil").text("Color scale input ceiling (default: 1.0)").action { (d,_) => colorCeil = d }
+      opt[Unit]('i', "color-inv").text("Inverted color scale").action { (_,_) => colorInv = true }
+      opt[Int]('m', "decim").text("Pixel decimation factor (default: 1)").action { (i,_) => decim = i }
+      arg[File]("input" ).required().text("Meta file of input to process").action { (f,_) => inFile  = f }
+      arg[File]("output").required().text("Image output file").action { (f,_) => outFile = f }
+      opt[Unit]("no-norm").text("Do not apply feature normalization").action { (_,_) => normalize = false }
+      opt[File]("input2").text("Second meta input file for cross- instead of self-similarity").action { (f,_) => inFile2 = Some(f) }
     }
 
     if (!parser.parse(args)) sys.exit(1)
@@ -402,8 +401,8 @@ object Strugatzki {
     var verbose   = false
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name --stats") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      opt[File]('d', "dir") required() text "Database directory" action { (f,_) => dir = f }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      opt[File]('d', "dir").required().text("Database directory").action { (f,_) => dir = f }
     }
     if (!parser.parse(args)) sys.exit(1)
 
@@ -454,10 +453,10 @@ object Strugatzki {
     var chanString  = "mix"
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -f") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      arg[File]("<input>...") required() unbounded() text "List of input files or directories" action { (f,_) => inputs +:= f }
-      opt[File]('d', "dir") required() text "Target directory" action { (f,_) => dir = f }
-      opt[String]('c', "channels") text "Channel mode (mix|first|last ; defaults to 'mix')" action { (s,_) => chanString = s }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      arg[File]("<input>...").required().unbounded().text("List of input files or directories").action { (f,_) => inputs +:= f }
+      opt[File]('d', "dir").required().text("Target directory").action { (f,_) => dir = f }
+      opt[String]('c', "channels").text("Channel mode (mix|first|last ; defaults to 'mix')").action { (s,_) => chanString = s }
     }
     if (!parser.parse(args)) sys.exit(1)
 
@@ -472,7 +471,7 @@ object Strugatzki {
     }
 
     FeatureExtraction.verbose = verbose
-    val inFiles: List[File] = inputs.flatMap { f =>
+    val inFiles: List[File] = inputs.iterator.flatMap { f =>
       if (f.isFile) {
         f :: Nil
       } else if (f.isDirectory) {
@@ -484,7 +483,7 @@ object Strugatzki {
       } else {
         sys.error(s"Not a valid input: $f")
       }
-    } (breakOut)
+    } .toList
 
     val targetDir         = dir
     val con               = ExtrConfig()
@@ -536,18 +535,18 @@ object Strugatzki {
     var maxBoost      = 8.0
 
     implicit val parser: OptionParser[Unit] = new OptionParser[Unit](s"$name -y") {
-      opt[Unit]('v', "verbose") text "Verbose output" action { (_,_) => verbose = true }
-      opt[File]('d', "dir") text "Database directory (required for normalization file)" action { (f,_) => dirOption = Some(f) }
-      opt[Double]("temp") text "Temporal weight (0 to 1, default 0.5)" action { (d,_) => temp = d }
-      opt[Double]("span1-start") text "Correlation begin in first file (secs)"  action { (d,_) => spanStart1 = Some(d) }
-      opt[Double]("span1-stop" ) text "Correlation end in first file (secs)"    action { (d,_) => spanStop1  = Some(d) }
-      opt[Double]("span2-start") text "Correlation begin in second file (secs)" action { (d,_) => spanStart2 = Some(d) }
-      opt[Double]("span2-stop" ) text "Correlation end in second file (secs)"   action { (d,_) => spanStop2  = Some(d) }
-      arg[File]("input1") required() text "Meta file of first input to process"  action { (f,_) => inFile1 = f }
-      arg[File]("input2") required() text "Meta file of second input to process" action { (f,_) => inFile2 = f }
-      arg[File]("output") required() text "Audio output file" action { (f,_) => outFile = f }
-      opt[Double]("boost-max") text "Maximum loudness boost factor (default 8)" action { (d,_) => maxBoost = d }
-      opt[Unit]("no-norm") text "Do not apply feature normalization" action { (_,_) => normalize = false }
+      opt[Unit]('v', "verbose").text("Verbose output").action { (_,_) => verbose = true }
+      opt[File]('d', "dir").text("Database directory (required for normalization file)").action { (f,_) => dirOption = Some(f) }
+      opt[Double]("temp").text("Temporal weight (0 to 1, default 0.5)").action { (d,_) => temp = d }
+      opt[Double]("span1-start").text("Correlation begin in first file (secs)" ).action { (d,_) => spanStart1 = Some(d) }
+      opt[Double]("span1-stop" ).text("Correlation end in first file (secs)"   ).action { (d,_) => spanStop1  = Some(d) }
+      opt[Double]("span2-start").text("Correlation begin in second file (secs)").action { (d,_) => spanStart2 = Some(d) }
+      opt[Double]("span2-stop" ).text("Correlation end in second file (secs)"  ).action { (d,_) => spanStop2  = Some(d) }
+      arg[File]("input1").required().text("Meta file of first input to process").action { (f,_) => inFile1 = f }
+      arg[File]("input2").required().text("Meta file of second input to process").action { (f,_) => inFile2 = f }
+      arg[File]("output").required().text("Audio output file").action { (f,_) => outFile = f }
+      opt[Double]("boost-max").text("Maximum loudness boost factor (default 8)").action { (d,_) => maxBoost = d }
+      opt[Unit]("no-norm").text("Do not apply feature normalization").action { (_,_) => normalize = false }
     }
 
     if (!parser.parse(args)) sys.exit(1)

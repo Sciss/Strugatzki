@@ -2,7 +2,7 @@
  *  NonRealtimeProcessor.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -49,8 +49,9 @@ object NonRealtimeProcessor {
 
     private def mkFile(suffix: String, keep: Boolean = false): File = {
       val f = File.createTemp(prefix = "struga_nrt", suffix = ".aif")
-      val p: PartialFunction[Any, Unit] = { case _ => f.delete() }
-      if (keep) onFailure(p) else onComplete(p)
+      onComplete { tr =>
+        if (tr.isFailure || !keep) f.delete()
+      }
       f
     }
 
@@ -151,7 +152,7 @@ object NonRealtimeProcessor {
 
       // val dur = Bundle.timetagToSecs( bufBndls.last.timetag )
       // val dur = bufBndls.last.timetag.toSecs
-      val dur = bndls.last.timetag.toSecs
+      val dur = bndls.last.timeTag.toSecs
 
       val nrtFut      = Server.renderNRT(dur, sCfg)
       nrtFut.start()

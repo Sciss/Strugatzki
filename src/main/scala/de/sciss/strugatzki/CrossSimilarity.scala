@@ -2,7 +2,7 @@
  *  CrossSimilarity.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -16,6 +16,7 @@ package de.sciss.strugatzki
 import de.sciss.file._
 import de.sciss.processor.{ProcessorFactory, ProcessorLike}
 import de.sciss.span.Span
+import de.sciss.strugatzki.impl.CrossSimilarityImpl
 import de.sciss.synth.io.AudioFileType
 
 import scala.language.implicitConversions
@@ -272,7 +273,7 @@ object CrossSimilarity extends ProcessorFactory.WithDefaults {
     * @param config        the settings for the process (e.g. input and output files)
     * @return              the cross similarity generating process (to be started)
     */
-  protected def prepare(config: Config): Prepared = new impl.CrossSimilarityImpl(config)
+  protected def prepare(config: Config): Prepared = new CrossSimilarityImpl(config)
 }
 trait CrossSimilarity extends ProcessorLike[CrossSimilarity.Product, CrossSimilarity] {
   def config: CrossSimilarity.Config

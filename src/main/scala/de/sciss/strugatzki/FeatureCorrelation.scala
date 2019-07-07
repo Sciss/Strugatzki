@@ -2,7 +2,7 @@
  *  FeatureCorrelation.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2018 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -14,8 +14,9 @@
 package de.sciss.strugatzki
 
 import de.sciss.file._
-import de.sciss.processor.{ProcessorLike, ProcessorFactory}
+import de.sciss.processor.{ProcessorFactory, ProcessorLike}
 import de.sciss.span.Span
+import de.sciss.strugatzki.impl.FeatureCorrelationImpl
 
 import scala.language.implicitConversions
 import scala.xml.{NodeSeq, XML}
@@ -78,7 +79,7 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
 
   protected def defaultConfig: Config = Config()
 
-  protected def prepare(config: Config): Prepared = new impl.FeatureCorrelationImpl(config)
+  protected def prepare(config: Config): Prepared = new FeatureCorrelationImpl(config)
 
   /** where temporal weight is between 0 (just spectral corr) and 1 (just temporal corr) */
   object Punch {
