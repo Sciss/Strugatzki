@@ -1,9 +1,9 @@
 lazy val commonSettings = Seq(
   name               := "Strugatzki",
-  version            := "2.19.0",
+  version            := "2.19.1-SNAPSHOT",
   organization       := "de.sciss",
-  scalaVersion       := "2.12.8",
-  crossScalaVersions := Seq("2.13.0", "2.12.8", "2.11.12"),
+  scalaVersion       := "2.13.1",
+  crossScalaVersions := Seq("2.13.1", "2.12.11"),
   description        := "Algorithms for extracting audio features and matching audio file similarities",
   homepage           := Some(url(s"https://git.iem.at/sciss/${name.value}")),
   licenses           := Seq("LGPL v2.1+" -> url("http://www.gnu.org/licenses/lgpl-2.1.txt"))
@@ -13,12 +13,12 @@ lazy val deps = new {
   val main = new {
     val fileUtil      = "1.1.3"
     val palette       = "1.0.0"
-    val scalaCollider = "1.28.4"
+    val scalaCollider = "1.28.5"
     val scopt         = "3.7.1"
-    val span          = "1.4.2"
+    val span          = "1.4.3"
   }
   val test = new {
-    val scalaTest     = "3.0.8"
+    val scalaTest     = "3.1.1"
   }
 }
 

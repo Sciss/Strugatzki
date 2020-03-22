@@ -1,15 +1,16 @@
 package de.sciss.strugatzki
 
-import org.scalatest.{GivenWhenThen, FeatureSpec}
-import de.sciss.span.Span
 import de.sciss.file._
+import de.sciss.span.Span
+import org.scalatest.GivenWhenThen
+import org.scalatest.featurespec.AnyFeatureSpec
 
-class StrugatzkiSuite extends FeatureSpec with GivenWhenThen {
-  feature("The xml representations should be correct") {
+class StrugatzkiSuite extends AnyFeatureSpec with GivenWhenThen {
+  Feature("The xml representations should be correct") {
     info("Settings and result objects are created,")
     info("and transformed forward and backward to XML")
 
-    scenario("Creating arbitrary configurations") {
+    Scenario("Creating arbitrary configurations") {
       Given("A FeatureExtraction.Settings configuration")
       val fe            = FeatureExtraction.Config()
       fe.audioInput     = file("testing.aif").absolute

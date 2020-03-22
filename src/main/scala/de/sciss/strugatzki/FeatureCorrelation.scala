@@ -2,7 +2,7 @@
  *  FeatureCorrelation.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2020 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -175,8 +175,8 @@ object FeatureCorrelation extends ProcessorFactory.WithDefaults {
       */
     var metaInput: File = file("input_feat.xml")
 
-    /** The punch in defaults to a `Span( 0L, 44100L )` and a temporal weight of 0.5. */
-    var punchIn = Punch(Span(0L, 44100L), 0.5f)
+    /** The punch in defaults to a `Span(0L, 44100L)` and a temporal weight of 0.5. */
+    var punchIn: Punch = Punch(Span(0L, 44100L), 0.5f)
 
     /** The punch out option defaults to `None`. */
     var punchOut = Option.empty[Punch]

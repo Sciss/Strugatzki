@@ -2,7 +2,7 @@
  *  Strugatzki.scala
  *  (Strugatzki)
  *
- *  Copyright (c) 2011-2019 Hanns Holger Rutz. All rights reserved.
+ *  Copyright (c) 2011-2020 Hanns Holger Rutz. All rights reserved.
  *
  *  This software is published under the GNU Lesser General Public License v2.1+
  *
@@ -26,7 +26,7 @@ import scopt.OptionParser
 
 import scala.collection.immutable.{IndexedSeq => Vec}
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Promise, Await, ExecutionContext, Future}
+import scala.concurrent.{Await, ExecutionContext, Future, Promise}
 import scala.util.{Failure, Success}
 
 object Strugatzki {
