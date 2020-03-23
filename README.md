@@ -136,7 +136,7 @@ with the self similarity matrix of a given feature file.
 This is a case that was not directly aimed at in the original design, so while it is possible to perform this task,
 the way one has to call Strugatzki is perhaps a bit strange. Here are the main concepts needed:
 
-- The 'database' to search for in this case contains only a single sound -- the long file.
+- The 'database' to search for in this case contains only a single sound &ndash; the long file.
 - In order to find more than one occurrence, we must set in advance the number of hits we want to have reported
 
 For the sake of the example, let's assume the long file is the public domain recording of an H.P. Lovecraft text,
@@ -171,10 +171,10 @@ contains the meta-data. We can now run the correlation algorithm:
 
 What are the parameters?
 
-- `-d db` - the 'database' directory (containing only one file, the long sound file)
-- `--in-start 0.0` - the start offset in second into the 'template' file (the short BUT file). If we wanted to select only a
+- `-d db` - the 'database' directory (containing only the features of one file, the long sound file)
+- `--in-start 0.0` - the start offset in seconds into the 'template' file (the short BUT file). If we wanted to select only a
   fraction of that file, we could give an offset here
-- `--in-stop 0.350` - the stop offset in second into the 'template' file. We give its total duration here.
+- `--in-stop 0.350` - the stop offset in seconds into the 'template' file. We give its total duration here.
 - `--dur-min 0.350` and `--dur-max 0.350` - the duration range for matching the template and the database. We force
   the program to match exactly the 350 milliseconds.
 - `--num-matches 20` and `--num-per-file 20` - by default, the program would return only one match, the best match.
